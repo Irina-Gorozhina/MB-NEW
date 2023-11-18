@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/auth_login.css">
+    <title>The Best Mobile Bazaar - Login</title>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="auth">
+    <h1>Employee Authorization</h1>
+    <form action="/auth_login" method="post">
+        <div class="item">
+            <div class="title">Login</div>
+            <input type="text" name="username">
+        </div>
+        <div class="item">
+            <div class="title">Password</div>
+            <input type="password" name="password">
+        </div>
+        <div class="buttons">
+            <button type="submit" class="login">Login</button>
+            <button class="back">Back</button>
+        </div>
+    </form>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+</body>
+</html>

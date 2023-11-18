@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_staff.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to show tooltip or error message
+            function showMessage(element, message) {
+                element.parentNode.querySelectorAll(".tooltip").forEach(span => span.remove())
+                // Create a new span element for the message
+                var messageSpan = document.createElement("span");
+                messageSpan.className = "tooltip";
+                messageSpan.innerHTML = message;
+
+                // Add the span element after the input element
+                element.parentNode.insertBefore(messageSpan, element.nextSibling);
+            }
+
+            // Function to remove tooltip or error message
+            function removeMessage(element) {
+                // Check if there is a next sibling and if it's a span with the class "tooltip"
+                if (element.nextSibling && element.nextSibling.className === "tooltip") {
+                    // Remove the span element
+                    element.parentNode.removeChild(element.nextSibling);
+                }
+            }
+
+            // Function to validate input
+            function validateInput(element, pattern, message) {
+                if (!element.value.match(pattern)) {
+                    
+                    showMessage(element, message);
+                    return false;
+                } else {
+                    // If the input is valid, remove any existing error message
+                    removeMessage(element);
+                    return true;
+                }
+            }
+
+            // Get form element
+            var form = document.querySelector("#staffform");
+
+            // Add event listeners for form validation
+            form.addEventListener("submit", function (event) {
+                // Validate each input field on form submission
+                var isValid = true;
+
+                // Validate First Name
+                isValid = validateInput(document.getElementById("first-name"), /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+                // Validate Last Name
+                isValid = validateInput(document.getElementById("last-name"), /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+                // Validate Role (select)
+                var roleSelect = document.getElementById("access-role");
+                if (roleSelect.value === "") {
+                    showMessage(roleSelect, "Please select a role");
+                    isValid = false;
+                } else {
+                    removeMessage(roleSelect);
+                }
+
+                // Validate Username
+                isValid = validateInput(document.getElementById("username"), /[a-zA-Z0-9\.\-_]{3,}/, "Username must be at least 3 characters, start with a letter, and can contain letters, numbers, periods, hyphens, and underscores.") && isValid;
+
+                // If the form is not valid, prevent submission
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            // Add event listeners for real-time validation on input change
+            var inputFields = form.querySelectorAll("input, select");
+
+            inputFields.forEach(function (inputField) {
+                inputField.addEventListener("input", function () {
+                    // Validate the input field on input change
+                    switch (inputField.id) {
+                        case "first-name":
+                            validateInput(inputField, /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes");
+                            break;
+                        case "last-name":
+                            validateInput(inputField, /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes");
+                            break;
+                        case "access-role":
+                            if (inputField.value === "") {
+                                showMessage(inputField, "Please select a role");
+                            } else {
+                                removeMessage(inputField);
+                            }
+                            break;
+                        case "username":
+                            validateInput(inputField, /[a-zA-Z0-9\.\-_]{3,}/, "Username must be at least 3 characters, start with a letter, and can contain letters, numbers, periods, hyphens, and underscores.");
+                            break;
+                        // Add cases for other input fields if needed
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="admin admin_staff">
+    <div class="header">
+        <%- include("partials/admin_header.ejs") %>
+    </div>
+    <div class="content">
+        <div class="table">
+            <div class="title">
+                <div class="buttons">Actions</div>
+                <div class="firstname">First Name</div>
+                <div class="lastname">Last Name</div>
+                <div class="role">Role</div>
+                <div class="username">User Name</div>
+
+            </div>
+            <div class="rows">
+                <% for (const item of allStaff) { %>
+                    <div class="row">
+                        <div class="buttons">
+                            <a href="/admin_staff?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                        </div>
+                        <div class="firstname"><%= item.first_name %></div>
+                        <div class="lastname"><%= item.last_name %></div>
+                        <div class="role"><%= item.access_role %></div>
+                        <div class="username"><%= item.username %></div>
+
+                    </div>
+                <% }%>
+
+            </div>
+        </div>
+        <div class="edit">
+            <a href="/admin_staff" class="create">Create</a>
+            <form action="/admin_staff" method="post" id="staffform">
+                <div class="item hidden">
+                    <div class="edit_title"></div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editStaff.id %>" name="id">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">First Name</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editStaff.first_name %>" name="first_name" id="first-name" >
+                        <span class="error-text">First name can only contain characters, spaces, hypens and single quotes</span>
+                    </div>
+                </div>
+                   
+                <div class="item">
+                    <div class="edit_title">Last Name</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editStaff.last_name %>" name="last_name" id="last-name">
+                        <span class="error-text">Last name can only contain characters, spaces, hyphens, and single quotes</span>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Role</div>
+                    <div class="edit_input">
+                        <select name="access_role" id="access-role">
+                            <option value="" disabled selected hidden>Select a role</option>
+                            <option <%= editStaff.access_role == "admin" ? "selected" : "" %> value="admin">Admin</option>
+                            <option <%= editStaff.access_role == "stock" ? "selected" : "" %> value="stock">Stock</option>
+                            <option <%= editStaff.access_role == "sales" ? "selected" : "" %> value="sales">Sales</option>
+                        </select>
+                        <span class="error-text">Please select a role</span>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">UserName</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editStaff.username %>" name="username" id="username">
+                        <span class="error-text">Username must be at least 3 characters, start with a letter, and can contain letters, numbers, periods, hyphens, and underscores.</span>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="edit_title">Password</div>
+                    <div class="edit_input">
+                        <input type="password" value="<%= editStaff.password %>" name="password">
+                    </div>
+                </div>
+                <div class="buttons">
+                    <% if (editStaff.id == "0") { %>
+                        <button name="action" class="submit" type="submit" value="create">Create</button>
+                    <% } else { %>
+                        <button name="action" class="submit" type="submit" value="update">Update</button>
+                        <button name="action" class="remove" type="submit" value="delete">Delete</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+</body>
+</html>

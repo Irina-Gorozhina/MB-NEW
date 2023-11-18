@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <title>The Best Mobile Bazaar</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="status">
+        <section>
+            <article class="responsive-half margin-auto">
+                <h2><%= status %></h2>
+                <% if (typeof message != "undefined") { %>
+                <p><%= message %></p>
+                <% } %>
+            </article>
+        </section>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/home.css">
+    <title>The Best Mobile Bazaar </title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="home">
+        <div class="img">
+            <img src="./img/home-main.png" alt="">
+        </div>
+        <div class="icons">
+            <div class="icon">
+                <img src="./img/icon-1.png" alt="icon car">
+                <span>Fast Shipping</span>
+            </div>
+            <div class="icon">
+                <img src="./img/icon-2.png" alt="icon support">
+                <span>Online support</span>
+            </div>
+            <div class="icon">
+                <img src="./img/icon-3.png" alt="icon warranty">
+                <span>3-year warranty</span>
+            </div>
+            <div class="icon">
+                <img src="./img/icon-4.png" alt="icon discount">
+                <span>Discounts</span>
+            </div>
+        </div>
+        <div class="products">
+            <div class="title">
+                <span>BEST SELLERS</span>
+            </div>
+            <div class="list">
+                   <% for (const product of products) { %>
+                    <div class="item">
+                        <img src="./img/product-img.png" alt="mobile phone">
+                        <p class="title"><%= product.name %></p>
+                        <p class="price">$<%= product.price %></p>
+                        <div class="buttons">
+                            <a href="/product_checkout?id=<%= product.id %>" class="buy">Buy</a>
+                            <a href="/product_item?id=<%= product.id %>" class="details">Details</a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>

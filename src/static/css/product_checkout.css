@@ -1,0 +1,197 @@
+.product_checkout {
+    width: 100%;
+}
+.product_checkout h1 {
+    color: #000;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.product_checkout .table .header {
+    background: #46AE72;
+    padding: 10px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.product_checkout .table .content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.product_checkout .table .header div,
+.product_checkout .table .content div {
+    width: 20%;
+}
+.product_checkout .table .content .img img {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.product_checkout .table .content .img {
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.product_checkout .table .content {
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.48px;
+}
+.product_checkout .table .total {
+    display: flex;
+}
+.product_checkout .table .total input {
+    border: 0;
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.48px;
+}
+.product_checkout .table .quantity input {
+    max-width: 40px;
+}
+
+.product_checkout .address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 550px;
+    margin:50px auto 0 auto;
+}
+.product_checkout .address h2 {
+    color: #000;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+.product_checkout .address .row {
+    width: 100%;
+    margin: 10px 0;
+}
+.product_checkout .address .item-3,
+.product_checkout .address .item-2 {
+    display: flex;
+    gap: 20px;
+}
+.product_checkout .address input {
+    width: 100%;
+    border: 1px solid #A9ACB6;
+    background: #FFF;
+    color: #A9ACB6;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.product_checkout .buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.product_checkout .buttons .back,
+.product_checkout .buttons .pay {
+    border: 0;
+    background: #46AE72;
+    padding: 15px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+.table-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .table {
+        display: none;
+    }
+    .table-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+    .table-mobile .img {
+        display: flex;
+        justify-content: center;
+    }
+    .product_checkout {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .product_checkout .address .item-3, .product_checkout .address .item-2 {
+        flex-direction: column;
+    }
+    .table-mobile .row {
+        display: flex;
+        gap: 20px;
+    }
+    .table-mobile .row .row_title {
+        color: #000;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.48px;
+        max-width: 50px;
+        width: 100%;
+    }
+
+    .table-mobile .row .row_content {
+        width: 100%;
+        color: #000;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 0.48px;
+
+    }
+
+    .table-mobile .row .row_content .total-mobile,
+    .table-mobile .row .row_content .total {
+        border: 0;
+        outline: 0;
+
+    }
+}

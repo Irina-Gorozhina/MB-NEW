@@ -1,0 +1,73 @@
+.news h1 {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.news .list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.news .list .item {
+    border-radius: 10px;
+    border: 1px solid #6B6C71;
+    background: rgba(217, 217, 217, 0.1);
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+
+}
+.news .list .item img {
+    max-width: 200px;
+    width: 100%;
+    margin-right: 20px;
+}
+.news .list .item .content {
+    width: 100%;
+    margin-left: 20px;
+}
+.news .list .content .date {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.news .list .content .title {
+    color: #46AE72;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 10px 0;
+}
+.news .list .content .description {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .news {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .news .list .item {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+}

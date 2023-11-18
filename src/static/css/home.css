@@ -1,0 +1,128 @@
+.home .img img {
+    width: 100%;
+}
+.home .icons {
+    background: #F0ECFA;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.home .icons .icon {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.home .icons .icon span {
+    margin-left: 10px;
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.home .products {
+    margin-top: 20px;
+}
+
+.home .products .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+}
+.home .products .title span {
+    border-bottom: 3px solid #3B9E33;
+}
+.home .products .list {
+    padding: 30px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.home .products .list .item {
+    width: 100%;
+    max-width: 300px;
+}
+.home .products .list .item img {
+    width: 100%;
+}
+.home .products .list .item .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}
+
+.home .products .list .item .price {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.home .products .list .item .buttons {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+    gap: 20px;
+}
+.home .products .list .item .buy {
+    background: #46AE72;
+    padding: 15px 10px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: 0;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.home .products .list .item .details {
+    width: 100%;
+    border: 1px solid #A9ACB6;
+    background: #FFF;
+    padding: 15px 10px;
+    color: #A9ACB6;
+    font-family: Inter;
+    cursor: pointer;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .home .icons {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+    }
+
+    .home .icons .icon {
+        max-width: 200px;
+    }
+
+    .home .products .list {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+}

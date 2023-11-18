@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_changelog.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="admin admin_changelog">
+        <div class="header">
+            <%- include("partials/admin_header.ejs") %>
+        </div>
+        <div class="content">
+            <div class="form">
+                <form action="/admin_changelog" method="get">
+                    <label for="user_id">User ID:</label>
+                    <input type="number" id="user_id" name="user_id" min="0" max="100000" value="<%= user_id %>" required>
+                    <label for="product_id">Product ID:</label>
+                    <input type="number" id="product_id" name="product_id" min="0" max="100000" value="<%= product_id %>" required>
+                    <label for="start_date">Start:</label>
+                    <input type="date" id="start_date" name="start_date" min="2023-01-01" max="2030-12-31" value="<%= startDate %>" required>
+                    <label for="end_date">End:</label>
+                    <input type="date" id="end_date" name="end_date" min="2023-01-01" max="2030-12-31" value="<%= endDate %>" required>
+                    <input type="submit" value="Search" />
+                  </form>
+            </div>
+            <div class="table">
+                <div class="title title-bold">
+                    <div class="user_id">User Name</div>
+                    <div class="date">Date</div>
+                    <div class="message">Message</div>
+                    <div class="user_id">Product</div>
+                </div>
+                <div class="rows">
+                    <% for (const item of allItems) { %>
+                        <div class="row">
+                            <div class="buttons">
+
+                            </div>
+                            <div class="user_id"><%= item.staffId %></div>
+                            <div class="date"><%= item.date %></div>
+                            <div class="message"><%= item.message %></div>
+                            <div class="message"><%= item.productId > 0 ? item.productId : "" %></div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_contacts.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+    </head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="admin admin_contacts">
+    <div class="header">
+        <%- include("partials/admin_header.ejs") %>
+    </div>
+    <div class="content">
+        <div class="table">
+            <div class="title">
+                <div class="buttons">Actions</div>
+                <div class="contacts_id">ID</div>
+                <div class="name">First name</div>
+                <div class="surname">Surname</div>
+                <div class="phone">Phone</div>
+                <div class="description">Description</div>
+            </div>
+            <div class="rows">
+                <% for (const item of allItems) { %>
+                    <div class="row">
+                        <div class="buttons">
+                            <a href="/admin_contacts?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                        </div>
+                        <div class="contacts_id"><%= item.id %></div>
+                        <div class="name"><%= item.name %></div>
+                        <div class="surname"><%= item.surname %></div>
+                        <div class="phone"><%= item.phone %></div>
+                        <div class="description"><%= item.description %></div>
+                    </div>
+                <% }%>
+            </div>
+        </div>
+        <div class="edit">
+            <a href="/admin_contacts" class="create">Create</a>
+            <form action="/admin_contacts" method="post" id="admincontactform">
+                <div class="item hidden">
+                    <div class="edit_title"></div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.id %>" name="id">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Name</div>
+                    <div class="edit_input">
+                        <input type="text" id="name" value="<%= editItem.name %>" name="name">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Surname</div>
+                    <div class="edit_input">
+                        <input type="text" id="surname" value="<%= editItem.surname %>" name="surname" >
+                    </div>
+                </div>
+               
+                <div class="item">
+                    <div class="edit_title">Phone</div>
+                    <div class="edit_input">
+                        <input type="text" id="phone" value="<%= editItem.phone %>" name="phone" >
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Description</div>
+                    <div class="edit_input">
+                        <textarea name="description" rows="20"><%= editItem.description %></textarea>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <% if (editItem.id == "0") { %>
+                        <button name="action" class="submit" type="submit" value="create">Create</button>
+                    <% } else { %>
+                        <button name="action" class="submit" type="submit" value="update">Update</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to show tooltip or error message
+        function showMessage(element, message) {
+            element.parentNode.querySelectorAll(".tooltip").forEach(span => span.remove())
+            // Create a new span element for the message
+            var messageSpan = document.createElement("span");
+            messageSpan.className = "tooltip";
+            messageSpan.innerHTML = message;
+
+            // Add the span element after the input element
+            element.parentNode.insertBefore(messageSpan, element.nextSibling);
+        }
+
+        // Function to remove tooltip or error message
+        function removeMessage(element) {
+            // Check if there is a next sibling and if it's a span with the class "tooltip"
+            if (element.nextSibling && element.nextSibling.className === "tooltip") {
+                // Remove the span element
+                element.parentNode.removeChild(element.nextSibling);
+            }
+        }
+
+        // Function to validate input
+        function validateInput(element, pattern, message) {
+            if (!element.value.match(pattern)) {
+                
+                showMessage(element, message);
+                return false;
+            } else {
+                // If the input is valid, remove any existing error message
+                removeMessage(element);
+                return true;
+            }
+        }
+
+        // Get form element
+        var form = document.querySelector("#admincontactform");
+
+        // Add event listeners for form validation
+        form.addEventListener("submit", function (event) {
+            // Validate each input field on form submission
+            var isValid = true;
+
+            // Validate First Name
+            isValid = validateInput(document.getElementById("name"), /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+            // Validate Last Name
+            isValid = validateInput(document.getElementById("surname"), /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+            
+
+            isValid = validateInput(document.getElementById("phone"), /[0-9\- ]{10,30}/, "Phone must be at least 11 numbers.") && isValid;
+
+            // If the form is not valid, prevent submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Add event listeners for real-time validation on input change
+        var inputFields = form.querySelectorAll("input, select");
+
+        inputFields.forEach(function (inputField) {
+            inputField.addEventListener("input", function () {
+                // Validate the input field on input change
+                switch (inputField.id) {
+                    case "first-name":
+                        validateInput(inputField, /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes");
+                        break;
+                    case "last-name":
+                        validateInput(inputField, /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes");
+                        break;
+                    case "access-role":
+                        if (inputField.value === "") {
+                            showMessage(inputField, "Please select a role");
+                        } else {
+                            removeMessage(inputField);
+                        }
+                        break;
+                    case "username":
+                        validateInput(inputField, /[a-zA-Z0-9\.\-_]{3,}/, "Username must be at least 3 characters, start with a letter, and can contain letters, numbers, periods, hyphens, and underscores.");
+                        break;
+                    // Add cases for other input fields if needed
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

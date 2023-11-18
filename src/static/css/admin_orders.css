@@ -1,0 +1,30 @@
+.admin .count {
+    min-width: 50px;
+    width: 100%;
+}
+
+.admin .product_id,
+.admin .price,
+.admin .post_code,
+.admin .city,
+.admin .status {
+    min-width: 100px;
+    width: 100%;
+}
+
+.admin .state,
+.admin .address,
+.admin .country,
+.admin .date,
+.admin .email,
+.admin .phone,
+.admin .lastname,
+.admin .firstname {
+    min-width: 150px;
+    width: 100%;
+}
+
+.admin .buttons {
+    min-width: 100px;
+    width: 100%;
+}

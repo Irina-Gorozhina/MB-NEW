@@ -1,0 +1,38 @@
+<header>
+    <div class="header-top">
+        <div class="logo">
+            <a href="/home">
+                <img src="./img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="search">
+            <form action="product_list" method="get">
+                <input type="text" placeholder="Search a product" name="search" value="<%= typeof filterData === "object" ? filterData.search : ''%>">
+                <button type="submit">
+                    <img src="./img/search.png" alt="icon for search">
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/product_list">Products</a>
+                    </li>
+                    <li>
+                        <a href="/about">About us</a>
+                    </li>
+                    <li>
+                        <a href="/news">News</a>
+                    </li>
+                    <li>
+                        <a href="/contacts">Contacts</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</header>

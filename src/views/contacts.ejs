@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/contacts.css">
+    <title>The Best Mobile Bazaar - Contacts</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="contacts">
+        <p class="phone">
+            Call Center: <a href="tel:18008002519">18008002519</a>
+        </p>
+        <p class="work-time">
+            Daily: from 9:00 to 21:00
+        </p>
+        <div class="contacts-content">
+            <% if(status === 'send'){ %>
+                <h1>Your request has been sent!</h1>
+            <% } else { %>
+                <form action="/contacts" method="post" class="form" id="contactform">
+                    <div class="title">
+                        Send us a message
+                    </div>
+                    <div class="item">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="item">
+                        <label for="surname">SurName</label>
+                        <input type="text" id="surname" name="surname">
+                    </div>
+                    <div class="item">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone">
+                    </div>
+                    <div class="item">
+                        <label for="question">What’s on your mind?</label>
+                        <textarea name="question" id="question" cols="30" rows="10"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            <% } %>
+            <div class="map">
+                <p>Address: 25 Ann Street, Brisbane, QLD, 4000</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.042076620832!2d152.9890125704701!3d-27.2465423538554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b93fb18ef54e041%3A0x62fb73a1b8c0817f!2sPenson%20Park%2C%2025%20Ann%20St%2C%20Kallangur%20QLD%204503%2C%20Austr%C3%A1lia!5e0!3m2!1spt-PT!2spl!4v1697463475097!5m2!1spt-PT!2spl" width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to show tooltip or error message
+            function showMessage(element, message) {
+                element.parentNode.querySelectorAll(".tooltip").forEach(span => span.remove())
+                // Create a new span element for the message
+                var messageSpan = document.createElement("span");
+                messageSpan.className = "tooltip";
+                messageSpan.innerHTML = message;
+
+                // Add the span element after the input element
+                element.parentNode.insertBefore(messageSpan, element.nextSibling);
+            }
+
+            // Function to remove tooltip or error message
+            function removeMessage(element) {
+                // Check if there is a next sibling and if it's a span with the class "tooltip"
+                if (element.nextSibling && element.nextSibling.className === "tooltip") {
+                    // Remove the span element
+                    element.parentNode.removeChild(element.nextSibling);
+                }
+            }
+
+            // Function to validate input
+            function validateInput(element, pattern, message) {
+                if (!element.value.match(pattern)) {
+                    
+                    showMessage(element, message);
+                    return false;
+                } else {
+                    // If the input is valid, remove any existing error message
+                    removeMessage(element);
+                    return true;
+                }
+            }
+
+            // Get form element
+            var form = document.querySelector("#contactform");
+
+            // Add event listeners for form validation
+            form.addEventListener("submit", function (event) {
+                // Validate each input field on form submission
+                var isValid = true;
+
+                // Validate First Name
+                isValid = validateInput(document.getElementById("name"), /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+                // Validate Last Name
+                isValid = validateInput(document.getElementById("surname"), /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes") && isValid;
+
+                
+
+                isValid = validateInput(document.getElementById("phone"), /[0-9\- ]{10,30}/, "Phone must be at least 11 numbers.") && isValid;
+
+                // If the form is not valid, prevent submission
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            // Add event listeners for real-time validation on input change
+            var inputFields = form.querySelectorAll("input, select");
+
+            inputFields.forEach(function (inputField) {
+                inputField.addEventListener("input", function () {
+                    // Validate the input field on input change
+                    switch (inputField.id) {
+                        case "first-name":
+                            validateInput(inputField, /[a-zA-Z '\-]+/, "First name can only contain characters, spaces, hyphens, and single quotes");
+                            break;
+                        case "last-name":
+                            validateInput(inputField, /^[a-zA-Z '\-]+$/, "Last name can only contain characters, spaces, hyphens, and single quotes");
+                            break;
+                        case "access-role":
+                            if (inputField.value === "") {
+                                showMessage(inputField, "Please select a role");
+                            } else {
+                                removeMessage(inputField);
+                            }
+                            break;
+                        case "username":
+                            validateInput(inputField, /[a-zA-Z0-9\.\-_]{3,}/, "Username must be at least 3 characters, start with a letter, and can contain letters, numbers, periods, hyphens, and underscores.");
+                            break;
+                        // Add cases for other input fields if needed
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

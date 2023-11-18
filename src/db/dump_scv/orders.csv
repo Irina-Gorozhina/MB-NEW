@@ -1,0 +1,7 @@
+"order_id";"product_id";"order_status";"customer_first_name";"customer_last_name";"customer_phone";"customer_email";"order_datetime";"customer_country";"customer_city";"customer_address";"customer_state";"customer_post_code";"count";"total_price"
+21;6;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:06:22";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";1;40
+22;6;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:08:35";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";1;40
+23;6;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:09:02";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";1;40
+24;6;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:12:02";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";1;40
+25;6;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:12:41";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";1;40
+26;5;"pending";"Roman";"Lauryniuk";"";"romanrostislavovich@gmail.com";"2023-10-17 15:15:52";"Польша";"Warsaw";"Marcina Kasprzaka 29C, m. 240";"";"01-234";3;180

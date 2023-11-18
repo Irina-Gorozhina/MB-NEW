@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/product_item.css">
+    <title>The Best Mobile Bazaar - Product Item</title>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="product_item">
+    <div class="img">
+        <img src="./img/product-img-2.png" alt="mobile photo for product">
+    </div>
+    <div class="content">
+        <div class="brand"><%= product.brand %></div>
+        <div class="title"><%= product.name %></div>
+        <div class="price">$<%= product.price %></div>
+        <div class="type"><%= product.type %></div>
+        <div class="description">
+            <p class="description_title">
+                Product Information:
+            </p>
+            <div class="description_text">
+                <%= product.description %>
+            </div>
+        </div>
+        <div class="buttons">
+            <a class="back">Back</a>
+            <a href="/product_checkout?id=<%= product.id %>" class="buy">Buy</a>
+        </div>
+
+    </div>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+</body>
+</html>

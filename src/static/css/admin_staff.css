@@ -1,0 +1,28 @@
+.admin .firstname,
+.admin .lastname,
+.admin .username {
+    max-width: 150px;
+    width: 100%;
+
+}
+.admin .rows
+{
+    font-size: 14px ;
+}
+.admin .role,
+.admin .buttons {
+    max-width: 100px;
+    width: 100%;
+}
+
+.error-text {
+    color: red; 
+    display: none;
+}
+
+
+/*input:invalid + .error-text,
+select:invalid + .error-text {
+    display: block;
+    
+}*/

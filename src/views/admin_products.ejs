@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_products.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="admin admin_products">
+    <div class="header">
+        <%- include("partials/admin_header.ejs") %>
+    </div>
+    <div class="content">
+        <div class="table">
+            <div class="title">
+                <div class="buttons">Actions</div>
+                <div class="product_id">Product ID</div>
+                <div class="name">Name</div>
+                <div class="stock">Stock</div>
+                <div class="price">Price</div>
+                <div class="description">Description</div>
+                <div class="brand">Brand</div>
+                <div class="type">Type</div>
+
+            </div>
+            <div class="rows">
+                <% for (const item of allItems) { %>
+                    <div class="row">
+                        <div class="buttons">
+                            <a href="/admin_products?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                        </div>
+                        <div class="product_id"><%= item.id %></div>
+                        <div class="name"><%= item.name %></div>
+                        <div class="stock"><%= item.stock %></div>
+                        <div class="price"><%= item.price %></div>
+                        <div class="description"><%= item.description %></div>
+                        <div class="brand"><%= item.brand %></div>
+                        <div class="type"><%= item.type %></div>
+
+                    </div>
+                <% }%>
+            </div>
+        </div>
+        <div class="edit">
+            <a href="/admin_products" class="create">Create</a>
+            <form action="/admin_products" method="post">
+                <div class="item hidden">
+                    <div class="edit_title"></div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.id %>" name="id">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Name</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.name %>" name="name" required>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Stock</div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.stock %>" name="stock" required min="0">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Price</div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.price %>" name="price" required min="1" >
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Description</div>
+                    <div class="edit_input">
+                        <textarea name="description"  required row="10" cols="20"><%= editItem.description %></textarea>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Brand</div>
+                    <div class="edit_input">
+                        <select name="brand" required>
+                            <option
+                                    <%= editItem.status=="samsung" ? "selected" : "" %>
+                                    value="samsung">Samsung</option>
+                            <option
+                                    <%= editItem.status=="apple" ? "selected" : "" %>
+                                    value="apple">Apple</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Type</div>
+                    <div class="edit_input">
+                        <select name="type" required>
+                            <option
+                                    <%= editItem.status=="smartphone" ? "selected" : "" %>
+                                    value="smartphone">Smartphone</option>
+                            <option
+                                    <%= editItem.status=="push-button" ? "selected" : "" %>
+                                    value="push-button">Push-button</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <% if (editItem.id == "0") { %>
+                        <button name="action" class="submit" type="submit" value="create">Create</button>
+                    <% } else { %>
+                        <button name="action" class="submit" type="submit" value="update">Update</button>
+                        <button name="action" class="remove" type="submit" value="delete">Delete</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/product_list.css">
+    <title>The Best Mobile Bazaar - Product List</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="product_list">
+        <div class="filter">
+            <form class="form" action="product_list" method="get">
+                <div class="title filter_item">
+                    <div>FILTERS</div>
+                    <a href="/product_list">Clear All</a>
+                </div>
+                <div class="price filter_item">
+                    <div class="filter_title">Price</div>
+                    <div class="range_container">
+                        <div class="form_control">
+                            <div class="form_control_container">
+                                <input class="form_control_container__time__input" type="number" id="fromInput" name="min_price" value="<%= filterData.min_price %>" min="0" max="100"/>
+                            </div>
+                            <div class="form_control_container">
+                                <input class="form_control_container__time__input" type="number" id="toInput" name="max_price" value="<%= filterData.max_price %>" min="0" max="100"/>
+                            </div>
+                        </div>
+                        <div class="sliders_control">
+                            <input id="fromSlider" type="range" value="<%= filterData.min_price %>" min="0" max="100"/>
+                            <input id="toSlider" type="range" value="<%= filterData.max_price %>" min="0" max="100"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="brands filter_item">
+                    <div class="filter_title">Brands</div>
+                    <input type="checkbox" name="brand" value="samsung" <%= filterData.brand?.includes('samsung') ? 'checked' : '' %>><span>Samsung</span><br>
+                    <input type="checkbox" name="brand" value="apple" <%= filterData.brand?.includes('apple') ? 'checked': '' %>><span>Apple</span><br>
+                </div>
+                <div class="types filter_item">
+                    <div class="filter_title">Types</div>
+                    <input type="checkbox" name="type" value="smartphone"  <%= filterData.type?.includes('smartphone') ? 'checked' : '' %>><span>Smartphone</span><br>
+                    <input type="checkbox" name="type" value="push-button" <%= filterData.type?.includes('push-button') ? 'checked' : '' %>><span>Push-button</span><br>
+                </div>
+                <button type="submit">Filter</button>
+            </form>
+
+        </div>
+        <div class="list">
+            <% for (const product of products) { %>
+                <div class="item">
+                    <img src="./img/product_list_item.png" alt="mobile phone for product list">
+                    <h2 class="title"><%= product.name %></h2>
+                    <p class="price">$<%= product.price %></p>
+                    <div class="buttons">
+                        <a href="/product_checkout?id=<%= product.id %>" class="buy">Buy</a>
+                        <a href="/product_item?id=<%= product.id %>" class="details">Details</a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+
+    <script src="./js/product_list.js"></script>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>

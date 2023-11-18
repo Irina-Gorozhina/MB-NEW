@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_changelog.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="admin admin_changelog">
+        <div class="header">
+            <%- include("partials/admin_header.ejs") %>
+        </div>
+        <div class="content">
+            <div class="table">
+                <div class="title">
+                    <div class="buttons">Actions</div>
+                    <div class="user_id">User Name</div>
+                    <div class="date">Date</div>
+                    <div class="message">Message</div>
+                </div>
+                <div class="rows">
+                    <% for (const item of allItems) { %>
+                        <div class="row">
+                            <div class="buttons">
+                                <a href="/admin_changelog?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                            </div>
+                            <div class="user_id"><%= item.username %></div>
+                            <div class="date"><%= item.date %></div>
+                            <div class="message"><%= item.message %></div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="edit">
+                <a href="/admin_changelog" class="create">Create</a>
+                <form action="/admin_changelog" method="post">
+                    <div class="item hidden">
+                        <div class="edit_title"></div>
+                        <div class="edit_input">
+                            <input type="number" value="<%= editItem.id %>" name="id">
+                        </div>
+                    </div>
+                   
+                    <div class="item">
+                        <div class="edit_title">User Name</div>
+                        <div class="edit_input">
+                            <input type="text" value="<%= editItem.username %>" name="username">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="edit_title">Message</div>
+                        <div class="edit_input">
+                            <textarea name="message" rows="20" required><%= editItem.message %></textarea>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <% if (editItem.id === 0) { %>
+                            <button name="action" class="submit" type="submit" value="create">Create</button>
+                        <% } else { %>
+                            <button name="action" class="submit" type="submit" value="update">Update</button>
+                            <button name="action" class="remove" type="submit" value="delete">Delete</button>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>

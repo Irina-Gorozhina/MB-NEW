@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_orders.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+
+
+    
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="admin admin_orders">
+    <div class="header">
+        <%- include("partials/admin_header.ejs") %>
+    </div>
+    <div class="content">
+        <div class="table">
+            <div class="title">
+                <div class="buttons">Actions</div>
+                <div class="product_id">Product name</div>
+                <div class="status">Order Status</div>
+                <div class="firstname">First Name</div>
+                <div class="lastname">Last Name</div>
+                <div class="phone">Phone</div>
+                <div class="email">Eamil</div>
+                <div class="date">Date</div>
+                <div class="country">Country</div>
+                <div class="city">City</div>
+                <div class="address">Address</div>
+                <div class="state">State</div>
+                <div class="post_code">Post Code</div>
+                <div class="count">Count</div>
+                <div class="price">Price</div>
+            </div>
+            <div class="rows">
+                <% for (const item of allItems) { %>
+                    <div class="row">
+                        <div class="buttons">
+                            <a href="/admin_orders?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                        </div>
+                        <div class="product_id"><%= item.product_name %></div>
+                        <div class="status"><%= item.status %></div>
+                        <div class="firstname"><%= item.customer_first_name %></div>
+                        <div class="lastname"><%= item.customer_last_name %></div>
+                        <div class="phone"><%= item.customer_phone %></div>
+                        <div class="email"><%= item.customer_email %></div>
+                        <div class="date"><%= item.datetime %></div>
+                        <div class="country"><%= item.customer_country %></div>
+                        <div class="city"><%= item.customer_city %></div>
+                        <div class="address"><%= item.customer_address %></div>
+                        <div class="state"><%= item.customer_state %></div>
+                        <div class="post_code"><%= item.customer_post_code %></div>
+                        <div class="count"><%= item.count %></div>
+                        <div class="price"><%= item.total_price %></div>
+                    </div>
+                <% }%>
+            </div>
+        </div>
+        <div class="edit">
+            <a href="/admin_orders" class="create">Create</a>
+            <form action="/admin_orders" method="post" id="orderform">
+                <div class="item hidden">
+                    <div class="edit_title"></div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.id %>" name="id">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Status</div>
+                    <div class="edit_input">
+                        <select name="status" >
+                            <option
+                                    <%= editItem.status=="pending" ? "selected" : "" %>
+                                    value="pending">Pending</option>
+                            <option
+                                    <%= editItem.status=="complete" ? "selected" : "" %>
+                                    value="complete">Complete</option>
+                            <option
+                                    <%= editItem.status=="cancelled" ? "selected" : "" %>
+                                    value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">First Name</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_first_name %>" name="customer_first_name">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Last Name</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_last_name %>" name="customer_last_name">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Phone</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_phone %>" name="customer_phone">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Email</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_email %>" name="customer_email">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Country</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_country %>" name="customer_country">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">City</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_city %>" name="customer_city">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Address</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_address %>" name="customer_address">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">State</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_state %>" name="customer_state">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Post code</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.customer_post_code %>" name="customer_post_code" >
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Count</div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.count %>" name="count"  min="1">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Total price</div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.total_price %>" name="total_price"  min="1">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Product name</div>
+                    <div class="edit_input">
+                        <select name="product_id" >
+                            <% for (const prod of allProducts) { %>
+                                <option <%= editItem.product_id==prod.id? "selected" : "" %>
+                                        value="<%= prod.id %>"><%= prod.name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <% if (editItem.id == "0") { %>
+                        <button name="action" class="submit" type="submit" value="create">Create</button>
+                    <% } else { %>
+                        <button name="action" class="submit" type="submit" value="update">Update</button>
+                        <button name="action" class="remove" type="submit" value="delete">Delete</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#orderform');
+
+        // Function to display a popup message
+        function showErrorMessage(element, message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.classList.add('error-message');
+            errorDiv.textContent = message;
+            element.parentNode.appendChild(errorDiv);
+        }
+
+        // Remove the popup message
+        function clearErrorMessages() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(message => message.remove());
+        }
+
+        // Function to validate fields before submitting the form
+        function validateForm(event) {
+            console.log(event.target)
+            clearErrorMessages();
+
+            const firstNameInput = form.querySelector('input[name="customer_first_name"]');
+            const lastNameInput = form.querySelector('input[name="customer_last_name"]');
+            const phoneInput = form.querySelector('input[name="customer_phone"]');
+            const emailInput = form.querySelector('input[name="customer_email"]');
+            const countryInput = form.querySelector('input[name="customer_country"]');
+            const cityInput = form.querySelector('input[name="customer_city"]');
+            const addressInput = form.querySelector('input[name="customer_address"]');
+            const stateInput = form.querySelector('input[name="customer_state"]');
+            const postCodeInput = form.querySelector('input[name="customer_post_code"]');
+
+            if (!/^[A-Za-z]+$/.test(firstNameInput.value)) {
+                showErrorMessage(firstNameInput, 'Please enter only letters. Example: Maria');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(lastNameInput.value)) {
+                showErrorMessage(lastNameInput, 'Please enter only letters. Example: Scott ');
+                event.preventDefault();
+            }
+
+            if (!/^\d+$/.test(phoneInput.value)) {
+                showErrorMessage(phoneInput, 'Please enter only 10 numbers. ');
+                event.preventDefault();
+            }
+
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailInput.value)) {
+                showErrorMessage(emailInput, 'Please enter a valid email address. example@example.com');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(countryInput.value)) {
+                showErrorMessage(countryInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(cityInput.value)) {
+                showErrorMessage(cityInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+
+            if (!/^[A-Za-z]+$/.test(stateInput.value)) {
+                showErrorMessage(stateInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+            if (!/^\d+$/.test(postCodeInput.value)) {
+                showErrorMessage(postCodeInput, 'Please enter only 4 numbers. Example: 1234');
+                event.preventDefault();
+            }
+        }
+
+        // Attach the function to the form submission event
+        form.addEventListener('submit', validateForm);
+    });
+</script>
+</body>
+</html>

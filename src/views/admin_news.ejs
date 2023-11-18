@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin_news.css">
+    <title>The Best Mobile Bazaar - Admin Panel</title>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="admin admin_news">
+    <div class="header">
+        <%- include("partials/admin_header.ejs") %>
+    </div>
+    <div class="content">
+        <div class="table">
+            <div class="title">
+                <div class="buttons">Actions</div>
+                <div class="news_id">News ID</div>
+                <div class="date">Date</div>
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+
+            </div>
+            <div class="rows">
+                <% for (const item of allItems) { %>
+                    <div class="row">
+                        <div class="buttons">
+                            <a href="/admin_news?edit_id=<%= item.id %>" class="edit_button">Edit</a>
+                        </div>
+                        <div class="news_id"><%= item.id %></div>
+                        <div class="date"><%= item.date %></div>
+                        <div class="title"><%= item.title %></div>
+                        <div class="description"><%= item.description %></div>
+
+                    </div>
+                <% }%>
+            </div>
+        </div>
+        <div class="edit">
+            <a href="/admin_news" class="create">Create</a>
+            <form action="/admin_news" method="post">
+                <div class="item hidden">
+                    <div class="edit_title"></div>
+                    <div class="edit_input">
+                        <input type="number" value="<%= editItem.id %>" name="id">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="edit_title">Title</div>
+                    <div class="edit_input">
+                        <input type="text" value="<%= editItem.title %>" name="title" required>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="edit_title">Description</div>
+                    <div class="edit_input">
+                        <textarea name="description" rows="20" required><%= editItem.description %></textarea>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <% if (editItem.id == "0") { %>
+                        <button name="action" class="submit" type="submit" value="create">Create</button>
+                    <% } else { %>
+                        <button name="action" class="submit" type="submit" value="update">Update</button>
+                        <button name="action" class="remove" type="submit" value="delete">Delete</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include("partials/footer.ejs") %>
+<%- include("partials/scripts.ejs") %>
+</body>
+</html>

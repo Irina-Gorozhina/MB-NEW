@@ -1,0 +1,130 @@
+.product_item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 40px 0;
+}
+
+.product_item .img {
+    width: 100%;
+}
+.product_item .img img {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.product_item .content {
+    width: 100%;
+}
+
+.product_item .content .brand,
+.product_item .content .price {
+    color: #000;
+    font-family: Inter;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.product_item .content .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 10px 0 20px 0;
+}
+
+.product_item .content .type {
+    margin: 50px 0;
+    border: 3px solid  #46AE72;
+    padding: 25px 30px;
+    color: #000;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: inline-block;
+}
+
+.product_item .content .description_title {
+    color: #000;
+    font-family: Inter;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+
+.product_item .content .description_text {
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.product_item .content .buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.product_item .content .back,
+.product_item .content .buy {
+    background: #46AE72;
+    padding: 15px;
+    max-width: 200px;
+    width: 100%;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.product_item .content .back {
+    width: 100%;
+    border: 1px solid #A9ACB6;
+    background: #FFF;
+    padding: 15px 10px;
+    color: #A9ACB6;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .product_item .img {
+        display: flex;
+    }
+    .product_item {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+    }
+    .product_item .content .buttons {
+        justify-content: center;
+    }
+
+    .product_item .content .buttons a {
+        margin-top: 20px;
+    }
+}

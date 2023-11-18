@@ -1,0 +1,21 @@
+.admin .news_id {
+    min-width: 100px;
+    width: 100%;
+}
+
+.admin .title,
+.admin .date {
+    min-width: 150px;
+    width: 100%;
+}
+
+.admin .description {
+    min-width: 300px;
+    width: 100%;
+}
+
+.admin .buttons {
+    min-width: 100px;
+    width: 100%;
+}
+

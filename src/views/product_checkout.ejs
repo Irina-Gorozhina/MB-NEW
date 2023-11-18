@@ -1,0 +1,181 @@
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/product_checkout.css">
+    <title>The Best Mobile Bazaar - Product Checkout</title>
+</head>
+<body>
+<%- include("partials/header.ejs") %>
+<main class="product_checkout">
+    <h1>Check Out</h1>
+    <% if(status === 'created'){ %>
+        <h1>Your order has been created! Order ID: <%= order.insertId %></h1>
+    <% } else { %>
+        <form action="/product_checkout" method="post" id="productcheckout">
+            <div class="table">
+                <div class="header">
+                    <div class="img">Image</div>
+                    <div class="product">Product</div>
+                    <div class="price">Price</div>
+                    <div class="quantity">Quantity</div>
+                    <div class="total">Total</div>
+                </div>
+                <div class="content">
+                    <div class="img">
+                        <img src="./img/product-img-2.png" alt="mobile phone photo">
+                    </div>
+                    <div class="product"><%= product.name %></div>
+                    <div class="price">$<%= product.price %></div>
+                    <div class="quantity">
+                        <input type="number" value="1" name="count" class="count-mobile"  min="1" max="<%= product.stock %>">
+                        <input type="number" value="<%= product.price %>" hidden name="price" id="price">
+                        <input type="number" value="<%= product.id %>" hidden name="product_id" >
+                    </div>
+                    <div class="total">
+                        $<input type="number" value="<%= product.price %>" name="totalPrice" class="total" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="table-mobile">
+                <div class="img">
+                    <img src="./img/product-img-2.png" alt="mobile phone photo">
+                </div>
+               
+                <div class="row">
+                    <div class="row_title">Name:</div>
+                    <div class="row_content"><%= product.name %></div>
+                </div>
+                <div class="row">
+                    <div class="row_title">Price:</div>
+                    <div class="row_content">$<%= product.price %></div>
+                </div>
+                <div class="row">
+                    <div class="row_title">Stock:</div>
+                    <div class="row_content">
+                        <input type="number" value="1" name="count" class="count"  min="1" max="<%= product.stock %>">
+                        <input type="number" value="<%= product.price %>" hidden name="price" class="price">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row_title">Total:</div>
+                    <div class="row_content">
+                        $<input type="number" value="<%= product.price %>" name="totalPrice" min="1" class="total-mobile" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="address">
+                <h2>Shipping address</h2>
+                <div class="row">
+                  <input type="text" id="country" name="country" placeholder="Country">
+                </div>
+                <div class="row">
+                  <input type="text" id="firstname" name="firstname" placeholder="First Name">
+                </div>
+                <div class="row">
+                  <input type="text" id="lastname" name="lastname" placeholder="Last Name">
+                </div>
+                <div class="row">
+                  <input type="email" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="row">
+                  <input type="text" id="address1" name="address1" placeholder="Address Line 1">
+                </div>
+                <div class="row">
+                                      <input type="text" id="city" name="city" placeholder="City">
+                                    </div>
+                <div class="row">                  
+                  <input type="text" id="state" name="state" placeholder="State">
+                </div>
+                <div class="row"> 
+                  <input type="text" id="postcode" name="postcode" placeholder="Post Code" >
+                </div>
+              </div>
+            </div>
+            <div class="buttons"> 
+                <a class="back" href="/" id="back">Back</a>
+                <button class="pay" type="submit">Pay</button>
+            </div>
+        </form>
+    <% } %>
+</main>
+<%- include("partials/footer.ejs") %>
+
+<script src="./js/product_checkout.js"></script>
+<%- include("partials/scripts.ejs") %>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#productcheckout');
+
+        // Function to display a popup message
+        function showErrorMessage(element, message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.classList.add('error-message');
+            errorDiv.textContent = message;
+            element.parentNode.appendChild(errorDiv);
+        }
+
+        // Remove the popup message
+        function clearErrorMessages() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(message => message.remove());
+        }
+
+        // Function to validate fields before submitting the form
+        function validateForm(event) {
+            console.log(event.target)
+            clearErrorMessages();
+
+            const firstNameInput = form.querySelector('input[name="firstname"]');
+            const lastNameInput = form.querySelector('input[name="lastname"]');
+            const emailInput = form.querySelector('input[name="email"]');
+            const countryInput = form.querySelector('input[name="country"]');
+            const cityInput = form.querySelector('input[name="city"]');
+            const addressInput = form.querySelector('input[name="address1"]');
+            const stateInput = form.querySelector('input[name="state"]');
+            const postCodeInput = form.querySelector('input[name="postcode"]');
+
+            if (!/^[A-Za-z]+$/.test(firstNameInput.value)) {
+                showErrorMessage(firstNameInput, 'Please enter only letters. Example: Maria');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(lastNameInput.value)) {
+                showErrorMessage(lastNameInput, 'Please enter only letters. Example: Scott ');
+                event.preventDefault();
+            }
+
+           
+            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailInput.value)) {
+                showErrorMessage(emailInput, 'Please enter a valid email address. example@example.com');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(countryInput.value)) {
+                showErrorMessage(countryInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+            if (!/^[A-Za-z]+$/.test(cityInput.value)) {
+                showErrorMessage(cityInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+
+            if (!/^[A-Za-z]+$/.test(stateInput.value)) {
+                showErrorMessage(stateInput, 'Please enter only letters.');
+                event.preventDefault();
+            }
+
+            if (!/^\d+$/.test(postCodeInput.value)) {
+                showErrorMessage(postCodeInput, 'Please enter only 4 numbers. Example: 1234');
+                event.preventDefault();
+            }
+        }
+
+        // Attach the function to the form submission event
+        form.addEventListener('submit', validateForm);
+    });
+</script>
+</body>
+</html>

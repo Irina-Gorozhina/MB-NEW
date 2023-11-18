@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="./css/news.css">
+    <title>The Best Mobile Bazaar - News</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <main class="news">
+        <h1>All news</h1>
+        <div class="list">
+            <% for (const news_item of news) { %>
+                <div class="item">
+                    <div class="img">
+                        <img src="./img/news.png" alt="photo mobile news">
+                    </div>
+                    <div class="content">
+                        <p class="date"><%= news_item.date %></p>
+                        <h2 class="title"><%= news_item.title %></h2>
+                        <p class="description"><%= news_item.description %></p>
+                    </div>
+                </div>
+            <% }%>
+
+        </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <%- include("partials/scripts.ejs") %>
+</body>
+</html>
